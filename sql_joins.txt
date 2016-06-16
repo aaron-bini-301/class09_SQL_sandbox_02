@@ -1,0 +1,41 @@
+
+//The below sql statement had the same results when I used JOIN instead of INNER JOIN.
+//I believe these are exactly the same.
+
+SELECT Customers.CustomerName, Customers.ContactName, Orders.OrderDate
+	FROM [Customers]
+	INNER JOIN [Orders]
+  ON Customers.CustomerID=Orders.CustomerID
+  ORDER BY Customers.CustomerName ASC;
+
+//The below code successfully joins three tables, and returns orders made by customers, the dates they were made, and the employee who processed those orders.
+
+SELECT Customers.CustomerName, Customers.ContactName, Orders.OrderDate, Employees.FirstName, Employees.LastName
+	FROM [Customers]
+	INNER JOIN [Orders]
+    ON Customers.CustomerID=Orders.CustomerID
+  INNER JOIN [Employees]
+    ON Employees.EmployeeID = Orders.EmployeeID
+  ORDER BY Customers.CustomerName ASC;
+
+//The below LEFT JOIN is the same as LEFT OUTER JOIN
+
+SELECT Customers.CustomerName, Customers.ContactName, Orders.OrderID FROM [Customers]
+  LEFT JOIN Orders
+  ON Customers.CustomerID = Orders.CustomerID
+  ORDER BY Orders.OrderID;
+
+//The below RIGHT JOIN is the same as RIGHT OUTER JOIN
+
+SELECT Orders.OrderID
+  FROM [Orders]
+  RIGHT JOIN Shippers
+  ON Orders.ShipperID = Shippers.ShipperID
+  ORDER BY Orders.OrderDate;
+
+//Below is a full join
+
+SELECT * FROM [Orders]
+  FULL JOIN Customers
+  ON Orders.CustomerID = Customers.CustomerID
+  ORDER BY Customers.CustomerName ASC;
